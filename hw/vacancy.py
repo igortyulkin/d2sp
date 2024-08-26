@@ -26,7 +26,7 @@ def get_vacancies(vacancy, page: int = 1, per_page: int = 100):
     return response.json()
 
 
-def vacancy_load(titles: list, count=10, per_page=100):
+def vacancy_load(titles: list, count=10, per_page=100, sleep_sec=0.5):
     ids = set()
     data = []
     for title in titles:
@@ -40,10 +40,13 @@ def vacancy_load(titles: list, count=10, per_page=100):
             for vacancy in items:
                 if vacancy['id'] not in ids:
                     logger.info(f"Load addition info for id {vacancy['id']}")
-                    vacancy['addition_info'] = get_vacancy_info(vacancy['url'])
+                    vacancy_info = get_vacancy_info(vacancy['url'])
+                    del vacancy_info['branded_description']
+                    vacancy['addition_info'] = vacancy_info
+
                     data.append(vacancy)
                     ids.add(vacancy['id'])
-                    sleep(0.5)
+                    sleep(sleep_sec)
                 logger.info(f"Loaded count: {len(data)}")
     logger.info(f"Load total vacancy count: {len(data)}")
     return data
@@ -54,7 +57,9 @@ data = vacancy_load(
     ['Data Science', 'Ml engineer', 'Data engineer', 'Data Scientist', 'Computer Vision', 'ML разработчик',
      'ML инженер', 'Data инженер'],
     count=20,
-    per_page=100)
+    per_page=100,
+    sleep_sec=0.3
+)
 
 with open('data_search/data.json', 'w') as f:
     f.write(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
