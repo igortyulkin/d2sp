@@ -1,0 +1,46 @@
+import json
+import requests
+from loguru import logger
+
+
+def get_vacancies(vacancy, page: int = 1, per_page: int = 100):
+    url = 'https://api.hh.ru/vacancies'
+    params = {
+        'text': f"{vacancy}",
+        'per_page': per_page,
+        'page': page
+    }
+    headers = {}
+
+    response = requests.get(url, params=params, headers=headers)
+    response.raise_for_status()
+    return response.json()
+
+
+def vacancy_load(titles: list, count=10, per_page=100):
+    ids = set()
+    data = []
+    for title in titles:
+        logger.info(f"Run load vacancy: {title}")
+        for i in range(count):
+            i_data: dict = get_vacancies(title, i + 1, per_page)
+            items = i_data['items']
+            if len(items) == 0:
+                logger.info('Empty list. break from load')
+                break
+            for vacancy in items:
+                if vacancy['id'] not in ids:
+                    data.append(vacancy)
+                    ids.add(vacancy['id'])
+    logger.info(f"Load total vacancy count: {len(data)}")
+    return data
+
+
+data = vacancy_load(
+    ['Data Science', 'Ml engineer', 'Data engineer', 'Data Scientist', 'Computer Vision', 'ML разработчик',
+     'ML инженер', 'Data инженер'],
+    count=20,
+    per_page=100)
+
+with open('data_search/data.json', 'w') as f:
+    f.write(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
