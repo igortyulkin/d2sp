@@ -46,14 +46,13 @@ def vacancy_load(titles: list, count=10, per_page=100, sleep_sec=0.5):
 
                     data.append(vacancy)
                     ids.add(vacancy['id'])
+                    logger.info(f"Loaded count: {len(data)}")
                     sleep(sleep_sec)
-                logger.info(f"Loaded count: {len(data)}")
-    logger.info(f"Load total vacancy count: {len(data)}")
 
-    with open('data_search/hh_ru.json', 'w') as f:
-        f.write(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
+        with open('data_search/hh_ru.json', 'w') as f:
+            f.write(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
 
 
 with open('etc/keywords.json') as f:
     keywords = json.load(f)['keywords']
-vacancy_load(keywords, count=20, per_page=100, sleep_sec=0.4)
+vacancy_load(keywords, count=20, per_page=100, sleep_sec=1)
