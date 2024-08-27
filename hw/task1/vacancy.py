@@ -2,6 +2,7 @@ import json
 from time import sleep
 
 import requests
+from requests import HTTPError, Response
 from loguru import logger
 
 
@@ -22,8 +23,14 @@ def get_vacancies(vacancy, page: int = 1, per_page: int = 100):
     headers = {}
 
     response = requests.get(url, params=params, headers=headers)
-    response.raise_for_status()
-    return response.json()
+    try:
+        response.raise_for_status()
+        return response.json()
+    except HTTPError as e:
+        response: Response = e.response
+        if response.status_code == 400:
+            return []
+        raise e
 
 
 def vacancy_load(titles: list, count=10, per_page=100, sleep_sec=0.5):
@@ -33,6 +40,8 @@ def vacancy_load(titles: list, count=10, per_page=100, sleep_sec=0.5):
         logger.info(f"Run load vacancy: {title}")
         for i in range(count):
             i_data: dict = get_vacancies(title, i + 1, per_page)
+            if len(i_data) == 0:
+                break
             items = i_data['items']
             if len(items) == 0:
                 logger.info('Empty list. break from load')
