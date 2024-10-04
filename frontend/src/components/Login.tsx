@@ -1,7 +1,7 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 import {ApplicationUserFactory} from '../common/user/ApplicationUser';
 import {ApplicationUserStorageFactory} from '../common/user/ApplicationUserStorage';
-import {Button, EmptyState, FormField, Input, InputPassword} from 'vienna-ui';
+import {Button, Card, EmptyState, FormField, Input, InputPassword} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
 import {Link} from "react-router-dom";
 
@@ -75,8 +75,14 @@ export default class Login extends Component<LoginProps, LoginState> {
     };
 
     render() {
+        if (null !== ApplicationUserStorageFactory.create().get()) {
+            return <>
+                you are login at
+            </>
+        }
         return (
-            <div onKeyDown={this.onKeyDownEnterHandler}>
+            <Card onKeyDown={this.onKeyDownEnterHandler}>
+                <h2>Login</h2>
                 <FormField className={'form-field'}>
                     <FormField.Label required>Email</FormField.Label>
                     <FormField.Content>
@@ -105,7 +111,7 @@ export default class Login extends Component<LoginProps, LoginState> {
                 <Link to={'/registration'}>
                     <Button design='primary' disabled={this.state.isDisableForm}>Sign up</Button>
                 </Link>
-            </div>
+            </Card>
         );
     }
 }

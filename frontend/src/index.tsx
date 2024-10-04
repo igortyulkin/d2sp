@@ -8,7 +8,7 @@ import React from 'react';
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import {Home} from "./components/Home";
-
+import {Card} from "vienna-ui"
 const router = createBrowserRouter([
     {path: "/", element: <Home/>},
     {path: "/home", element: <Home/>},
@@ -22,7 +22,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <Card>
+            <RouterProvider router={router}/>
+        </Card>
     </React.StrictMode>
 );
 

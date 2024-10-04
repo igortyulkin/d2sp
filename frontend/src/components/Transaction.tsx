@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, EmptyState} from 'vienna-ui'
+import {Table, EmptyState, Card} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
@@ -27,7 +27,7 @@ export const Transaction = () => {
         <>
             <NavHeader/>
             <h2>My transactions</h2>
-            <div style={{height: '5rem'}}>
+            <Card style={{minHeight: '5rem'}}>
                 {!state.loaded ? <EmptyState loading={true}/> : ''}
                 <Table data={state.transactions}>
                     <Table.Column id='id' title='ID'>
@@ -43,7 +43,7 @@ export const Transaction = () => {
                         {(item) => DateFormatter.toDateRow(item.transaction_at, 'T') + ' ' + DateFormatter.toTimeRow(item.transaction_at, 'T')}
                     </Table.Column>
                 </Table>
-            </div>
+            </Card>
         </>
 
     )

@@ -70,7 +70,7 @@ export default class Registration extends Component<any, RegistrationState> {
 
     render() {
         return (
-            <div onKeyDown={this.onKeyDownEnterHandler}>
+            <Card onKeyDown={this.onKeyDownEnterHandler}>
                 <NavHeader disabled={ApplicationUserStorageFactory.create().get() === null}/>
                 <Card>
                     <FormField className={'form-field'}>
@@ -127,7 +127,7 @@ export default class Registration extends Component<any, RegistrationState> {
                         Sign up {this.state.loading ? <EmptyState loading/> : ''}
                     </Button>
                 </Card>
-            </div>
+            </Card>
         );
     }
 }

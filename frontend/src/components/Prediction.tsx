@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, EmptyState, Badge} from 'vienna-ui'
+import {Table, Card, EmptyState, Badge} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {CreatePrediction} from "./CreatePrediction";
@@ -32,7 +32,9 @@ export const Prediction = () => {
             <NavHeader/>
             <h2>My prediction tasks</h2>
             <CreatePrediction/>
-            <div style={{height: '5rem'}}>
+            <br/>
+            <br/>
+            <Card style={{minHeight: '5rem'}}>
                 {!state.loaded ? <EmptyState loading={true}/> : ''}
                 <Table data={state.tasks}>
                     <Table.Column id='id' title='ID'>
@@ -45,7 +47,7 @@ export const Prediction = () => {
                         {(item) => item.quality}
                     </Table.Column>
                 </Table>
-            </div>
+            </Card>
         </>
 
     )

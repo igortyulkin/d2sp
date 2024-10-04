@@ -1,5 +1,5 @@
 import React from 'react';
-import {Flex, P} from 'vienna-ui'
+import {Flex, P, Card} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {DateFormatter} from "../common/date/DateFormatter";
 import {apiEntrypoint} from "../config";
@@ -28,7 +28,7 @@ export const Profile = () => {
         <>
             <NavHeader/>
             <h2>Profile</h2>
-            <div>
+            <Card>
                 <Flex direction={'column'}>
                     <P><b>Email: </b>{state.user ? state.user['email'] : null}</P><br/>
                     <P><b>Role: </b>{state.user ? state.user['role'] : null}</P><br/>
@@ -38,7 +38,7 @@ export const Profile = () => {
                     <P><b>Balance: </b>{state.user ? state.user['credit_count'] : null}</P><br/>
                     <P><b>Registration date: </b>{state.user ? DateFormatter.toDateRow(state.user['created_at'], 'T') : null}</P><br/>
                 </Flex>
-            </div>
+            </Card>
         </>
     )
 }
