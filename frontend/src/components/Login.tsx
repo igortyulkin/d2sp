@@ -3,6 +3,7 @@ import {ApplicationUserFactory} from '../common/user/ApplicationUser';
 import {ApplicationUserStorageFactory} from '../common/user/ApplicationUserStorage';
 import {Button, EmptyState, FormField, Input, InputPassword} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
+import {Link} from "react-router-dom";
 
 interface LoginState {
     loading: boolean;
@@ -65,7 +66,7 @@ export default class Login extends Component<LoginProps, LoginState> {
                         return;
                     }
                     ApplicationUserStorageFactory.create().store(ApplicationUserFactory.create(data['access_token']));
-                    window.location.replace(window.location.href);
+                    window.location.replace('/profile');
                 })
             })
             .catch((error) => {
@@ -99,6 +100,11 @@ export default class Login extends Component<LoginProps, LoginState> {
                 <Button onClick={this.handleSubmit} design='accent' disabled={this.state.isDisableForm}>
                     Sign in {this.state.loading ? <EmptyState loading/> : ''}
                 </Button>
+                <br/>
+                <br/>
+                <Link to={'/registration'}>
+                    <Button design='primary' disabled={this.state.isDisableForm}>Sign up</Button>
+                </Link>
             </div>
         );
     }

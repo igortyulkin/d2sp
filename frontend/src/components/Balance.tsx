@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, InputNumber, FormField} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
+import {NavHeader} from "./NavHeader";
 
 export const Balance = () => {
     const [state, setState] = React.useState({credit_count: 0})
@@ -23,6 +24,7 @@ export const Balance = () => {
     }
     return (
         <>
+            <NavHeader/>
             <h2>Up balance</h2>
             <div style={{height: '10rem'}}>
                 <FormField>

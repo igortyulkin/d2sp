@@ -3,6 +3,7 @@ import {Table, EmptyState, Badge} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {CreatePrediction} from "./CreatePrediction";
+import {NavHeader} from "./NavHeader";
 
 export const Prediction = () => {
     const [state, setState] = React.useState({tasks: [], loaded: false})
@@ -28,6 +29,7 @@ export const Prediction = () => {
     }
     return (
         <>
+            <NavHeader/>
             <h2>My prediction tasks</h2>
             <CreatePrediction/>
             <div style={{height: '5rem'}}>

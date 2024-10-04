@@ -2,6 +2,7 @@ import React from 'react';
 import {Table, EmptyState} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
+import {NavHeader} from "./NavHeader";
 
 export const Transaction = () => {
     const [state, setState] = React.useState({transactions: []})
@@ -13,7 +14,7 @@ export const Transaction = () => {
             'Authorization': `Bearer ${ApplicationUserStorageFactory.create().get()?.token}`
         },
     };
-    if (0 === state.transactions.length) {
+    if (0 === state?.transactions?.length || undefined === state.transactions) {
         fetch(`${apiEntrypoint()}/transactional`, requestOptions)
             .then((response) => {
                 return response.json().then((data) => setState({transactions: data['items']}))
@@ -22,9 +23,10 @@ export const Transaction = () => {
     }
     return (
         <>
+            <NavHeader/>
             <h2>My transactions</h2>
             <div style={{height: '5rem'}}>
-                {0 === state.transactions.length ? <EmptyState loading={true}/> : ''}
+                {0 === state.transactions?.length ? <EmptyState loading={true}/> : ''}
                 <Table data={state.transactions}>
                     <Table.Column id='id' title='ID'>
                         {(item) => item.id}

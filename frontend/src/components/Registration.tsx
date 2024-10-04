@@ -1,6 +1,8 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 import {Button, EmptyState, FormField, Input, InputPassword, Card} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
+import {NavHeader} from "./NavHeader";
+import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 
 interface RegistrationState {
     loading: boolean;
@@ -58,7 +60,7 @@ export default class Registration extends Component<any, RegistrationState> {
             .then((response) => {
                 return response.json().then((data) => {
                     alert("You have successfully registered")
-                    window.location.replace(window.location.href);
+                    window.location.replace('/');
                 })
             })
             .catch((error) => {
@@ -69,6 +71,7 @@ export default class Registration extends Component<any, RegistrationState> {
     render() {
         return (
             <div onKeyDown={this.onKeyDownEnterHandler}>
+                <NavHeader disabled={ApplicationUserStorageFactory.create().get() === null}/>
                 <Card>
                     <FormField className={'form-field'}>
                         <FormField.Label required>Email</FormField.Label>

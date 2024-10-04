@@ -3,6 +3,7 @@ import {Flex, P} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {DateFormatter} from "../common/date/DateFormatter";
 import {apiEntrypoint} from "../config";
+import {NavHeader} from "./NavHeader";
 
 export const Profile = () => {
     const [state, setState] = React.useState({user: null})
@@ -25,6 +26,7 @@ export const Profile = () => {
     }
     return (
         <>
+            <NavHeader/>
             <h2>Profile</h2>
             <div>
                 <Flex direction={'column'}>
