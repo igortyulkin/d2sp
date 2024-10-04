@@ -1,0 +1,77 @@
+volumes:
+  postgres_volume_ds2p:
+  rabbitmq_volume_ds2p:
+services:
+  app:
+    build:
+      context: ./app/
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    depends_on:
+      - database
+      - rabbitmq
+      - saver
+      - predictor
+  web:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+  database:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_volume_ds2p:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    volumes:
+      - rabbitmq_volume_ds2p:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - .env
+    restart: on-failure
+  predictor:
+    build:
+      context: ./app/
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    command: 'python worker.py --predict'
+    restart: always
+    depends_on:
+      - database
+      - rabbitmq
+  saver:
+    build:
+      context: ./app/
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    command: 'python worker.py --save'
+    restart: always
+    depends_on:
+      - database
+      - rabbitmq
+  frontend:
+    image: node:lts-slim
+    volumes:
+      - ./store/node:/root/.npm
+      - ./frontend:/frontend
+    ports:
+      - 3000:3000
+    working_dir: /frontend
+    env_file:
+      - ./frontend/.env
+    command: "npm start"
