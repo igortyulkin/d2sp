@@ -3,9 +3,10 @@ import {Table, EmptyState} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
+import {DateFormatter} from "../common/date/DateFormatter";
 
 export const Transaction = () => {
-    const [state, setState] = React.useState({transactions: []})
+    const [state, setState] = React.useState({transactions: [], loaded: false})
     const requestOptions = {
         method: 'GET',
         headers: {
@@ -14,10 +15,11 @@ export const Transaction = () => {
             'Authorization': `Bearer ${ApplicationUserStorageFactory.create().get()?.token}`
         },
     };
-    if (0 === state?.transactions?.length || undefined === state.transactions) {
+    if (!state.loaded) {
+        setState({transactions: [], loaded: true})
         fetch(`${apiEntrypoint()}/transactional`, requestOptions)
             .then((response) => {
-                return response.json().then((data) => setState({transactions: data['items']}))
+                return response.json().then((data) => setState({transactions: data['items'], loaded: true}))
             })
             .catch((error) => console.log(error));
     }
@@ -26,7 +28,7 @@ export const Transaction = () => {
             <NavHeader/>
             <h2>My transactions</h2>
             <div style={{height: '5rem'}}>
-                {0 === state.transactions?.length ? <EmptyState loading={true}/> : ''}
+                {!state.loaded ? <EmptyState loading={true}/> : ''}
                 <Table data={state.transactions}>
                     <Table.Column id='id' title='ID'>
                         {(item) => item.id}
@@ -38,7 +40,7 @@ export const Transaction = () => {
                         {(item) => item.credit_count}
                     </Table.Column>
                     <Table.Column id='transaction_at' title='Transaction At'>
-                        {(item) => item.transaction_at}
+                        {(item) => DateFormatter.toDateRow(item.transaction_at, 'T') + ' ' + DateFormatter.toTimeRow(item.transaction_at, 'T')}
                     </Table.Column>
                 </Table>
             </div>
