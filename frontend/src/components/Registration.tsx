@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button,Flex, EmptyState, FormField, Input, InputPassword, Card, H2} from 'vienna-ui';
+import {Button, Flex, EmptyState, FormField, Input, InputPassword, Card, H2, Notifier} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
 import {Link} from "react-router-dom";
 
@@ -40,7 +40,7 @@ export default class Registration extends Component<any, RegistrationState> {
             || undefined === this.state.first_name?.length
             || undefined === this.state.last_name?.length
         ) {
-            alert('Please, fill email, password, firstname and lastname');
+            Notifier.warning({title: "", message: 'Please, fill email, password, firstname and lastname'})
             return;
         }
         const requestOptions = {
