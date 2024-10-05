@@ -76,10 +76,8 @@ export default class Login extends Component<LoginProps, LoginState> {
     };
 
     render() {
-        if (null !== ApplicationUserStorageFactory.create().get()) {
-            return <>
-                you are login at
-            </>
+        if (ApplicationUserStorageFactory.create().get()) {
+            window.location.href='/home'
         }
         return (
             <Card className={'login-center'} onKeyDown={this.onKeyDownEnterHandler}>
