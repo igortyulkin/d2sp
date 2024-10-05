@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
+import {Exit} from "vienna.icons";
 
 export const Logout = (props: {disabled?:boolean}) => {
     const handleClick = () => {
@@ -8,9 +9,9 @@ export const Logout = (props: {disabled?:boolean}) => {
         window.location.replace('/');
     }
     return (
-        <div style={{height: '5rem', minWidth: "70%"}}>
+        <div style={{minWidth: "70%"}}>
             <Button disabled={props.disabled == true} design="primary" onClick={handleClick} style={{float: "right"}}>
-                Logout
+                <Exit/>Logout
             </Button>
         </div>
     )
