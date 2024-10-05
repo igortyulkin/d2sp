@@ -168,3 +168,9 @@ data_search
 # Npm cache
 store
 store/node/
+
+# Env files
+.env
+.env.local
+.env.test
+.env.test.local

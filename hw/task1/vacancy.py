@@ -58,7 +58,7 @@ def vacancy_load(titles: list, count=10, per_page=100, sleep_sec=0.5):
                     logger.info(f"Loaded count: {len(data)}")
                     sleep(sleep_sec)
 
-        with open('data_search/hh_ru.json', 'w') as f:
+        with open('hw/data_search/hh_ru2.json', 'w') as f:
             f.write(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
 
 

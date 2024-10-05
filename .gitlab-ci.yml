@@ -1,0 +1,75 @@
+stages:
+  - lint
+  - test
+
+.postgres: &postgres
+  variables:
+    POSTGRES_HOST: localhost
+    POSTGRES_PORT: 5432
+    POSTGRES_DB: ds2p_practice
+    POSTGRES_USER: ds2p_user
+    POSTGRES_PASSWORD: ds2p_pass
+    DUMP_SQL: false
+  services:
+    - name: postgres:15-alpine
+      alias: database
+
+.rule_merge_request:
+  rules:
+    - if: $CI_MERGE_REQUEST_ID != null
+
+lint check:
+  extends:
+    - .rule_merge_request
+  image: python:3.11-slim
+  stage: lint
+  script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - venv/bin/pip install flake8
+    - flake8 app -v
+  allow_failure: false
+
+unit tests:
+  extends:
+    - .rule_merge_request
+  image: python:3.11-slim
+  stage: test
+  script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - venv/bin/pip install -Ur app/requirements.txt
+    - PYTHONPATH=$PWD/app pytest tests/unit --cov=. -s -v --junitxml=junit.xml
+  allow_failure: false
+
+functional tests:
+  extends:
+    - .rule_merge_request
+  <<: *postgres
+  stage: test
+  image: python:3.11-slim
+  script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - venv/bin/pip install -Ur app/requirements.txt
+    - cd app
+    - alembic upgrade head
+    - cd ..
+    - PYTHONPATH=$PYTHONPATH:$PWD:$PWD/app:$PWD/tests pytest tests/functional --cov=. -s -v --junitxml=junit.xml
+  allow_failure: false
+
+api tests:
+  extends:
+    - .rule_merge_request
+  <<: *postgres
+  stage: test
+  image: python:3.11-slim
+  script:
+    - python -m venv venv
+    - source venv/bin/activate
+    - venv/bin/pip install -Ur app/requirements.txt
+    - cd app
+    - alembic upgrade head
+    - cd ..
+    - PYTHONPATH=$PYTHONPATH:$PWD:$PWD/app:$PWD/tests pytest tests/api --cov=. -s -v --junitxml=junit.xml
+  allow_failure: false

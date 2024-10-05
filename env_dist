@@ -1,0 +1,20 @@
+###> db settings
+POSTGRES_HOST=database
+POSTGRES_PORT=5432
+POSTGRES_DB=ds2p
+POSTGRES_USER=ds2p_user
+POSTGRES_PASSWORD=ds2p_pass
+DUMP_SQL=false
+###< db settings
+
+###> rabbitmq settings
+RABBITMQ_HOST=rabbitmq
+RABBITMQ_PORT=5672
+RABBITMQ_DEFAULT_USER=ds2p_user
+RABBITMQ_DEFAULT_PASS=ds2p_pass
+###< db settings
+
+###> app config
+MODEL_PREDICTION_COST=10
+AUTH_SECRET_KEY=Nb3kresrb4hu5991few3jk
+###< app config
