@@ -1,8 +1,5 @@
 import React from 'react';
-import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
-import {NavHeader} from "./NavHeader";
-import {P, H2, Button} from 'vienna-ui'
-import {Link} from "react-router-dom";
+import {P, H2} from 'vienna-ui'
 
 export const Description = () => {
     return (
