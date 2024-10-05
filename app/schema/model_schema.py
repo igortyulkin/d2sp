@@ -20,7 +20,7 @@ class PredictItem(BaseModel):
 
 
 class CreateTaskRequest(BaseModel):
-    payload: PredictItem
+    payload: dict
 
 
 class PredictResponse(BaseModel):

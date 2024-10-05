@@ -16,7 +16,7 @@ export PYTHONPATH=$PYTHONPATH:$PWD:$PWD/app:$PWD/tests
 ### Build container for local dev
 ```
 cp env_dist .env
-cp env_dist .env.test
+cp frontend/env_dist .env
 1. docker-compose build
 2. docker-compose run frontend npm i --loglevel=error
 4. docker-compose up -d
@@ -29,10 +29,11 @@ docker-compose run app alembic revision --autogenerate
 ```
 ### Run tests
 ```
-PYTHONPATH=$PYTHONPATH:$PWD:$PWD/app:$PWD/tests python -m pytest tests/
+If need configure tests/pytest.ini
+bin/test.sh
 ```
 ### Check lint
 ```
-flake8 src -v
+bin/lint.sh
 ```
 

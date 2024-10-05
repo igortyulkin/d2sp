@@ -10,7 +10,7 @@ export const Logout = (props: {disabled?:boolean}) => {
     }
     return (
         <div style={{minWidth: "70%"}}>
-            <Button disabled={props.disabled == true} design="primary" onClick={handleClick} style={{float: "right"}}>
+            <Button disabled={props.disabled === true} design="primary" onClick={handleClick} style={{float: "right"}}>
                 <Exit/>Logout
             </Button>
         </div>

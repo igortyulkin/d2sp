@@ -1,11 +1,12 @@
 import React from 'react';
-import {Table, Card, EmptyState, Badge, H2} from 'vienna-ui'
-import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
-import {apiEntrypoint} from "../config";
-import {CreatePrediction} from "./CreatePrediction";
-import {NavHeader} from "./NavHeader";
+import {Table, Card, EmptyState, Badge, H2, Button} from 'vienna-ui'
+import {ApplicationUserStorageFactory} from "../../common/user/ApplicationUserStorage";
+import {apiEntrypoint} from "../../config";
+import {NavHeader} from "../NavHeader";
+import {Link} from "react-router-dom";
+import {AddRing} from 'vienna.icons'
 
-export const Prediction = () => {
+export const List = () => {
     const [state, setState] = React.useState({tasks: [], loaded: false})
     const requestOptions = {
         method: 'GET',
@@ -32,7 +33,9 @@ export const Prediction = () => {
             <NavHeader/>
             <H2 color={"seattle140"}>My prediction tasks</H2>
             <br/>
-            <CreatePrediction/>
+            <Link to={'/prediction/create'}>
+                <Button design='primary'><AddRing/>Create prediction</Button>
+            </Link>
             <br/>
             <br/>
             <Card style={{minHeight: '5rem'}}>

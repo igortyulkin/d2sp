@@ -15,6 +15,6 @@ RABBITMQ_DEFAULT_PASS=ds2p_pass
 ###< db settings
 
 ###> app config
-MODEL_PREDICTION_COST=1000
+MODEL_PREDICTION_COST=10
 AUTH_SECRET_KEY=Nb3kresrb4hu5991few3jk
 ###< app config
