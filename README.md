@@ -24,7 +24,7 @@ export PYTHONPATH=$PYTHONPATH:$PWD:$PWD/app:$PWD/tests
 ### Build container for local dev
 ```
 cp env_dist .env
-cp frontend/env_dist .env
+cp frontend/env_dist frontend/.env
 1. docker-compose build
 2. docker-compose run frontend npm i --loglevel=error
 4. docker-compose up -d
