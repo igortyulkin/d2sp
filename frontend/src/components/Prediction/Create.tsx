@@ -70,10 +70,10 @@ export const Create = () => {
                     render={({handleSubmit, values, form}) => (
                         <form onSubmit={handleSubmit} autoComplete={'off'}>
                             <Button type='submit' design='accent'>Create</Button>
-                            <div>
+                            <div style={{display: "flex", flexFlow: "wrap"}}>
                                 {
                                     Object.keys(Features).map((key, idx) => {
-                                        return <FormField>
+                                        return <FormField style={{minWidth: "15rem"}}>
                                             <Field name={key} id={idx} type={'checkbox'}>
                                                 {(props) => (
                                                     <Switcher
