@@ -1,5 +1,17 @@
-Data science salary predictor(DS2P)
--- 
+## Data science salary predictor(DS2P)
+### Сервис предсказания заработной платы
+### О нас
+Мы помогаем начинающим специалистам в Data Science узнать, какую заработную плату можно ожидать на старте карьеры.
+
+### Как это работает?
+1. Введите данные: Уровень образования, опыт, навыки.
+2. Получите прогноз: Узнайте свою потенциальную зарплату.
+### Почему мы?
+- Точные прогнозы
+- Простота использования
+- Актуальные данные
+
+----
 ##For local development
 ### Install dependencies
 ```
@@ -7,10 +19,6 @@ python -m venv venv
 source venv/bin/activate
 pip install -Ur requirements.txt
 export PYTHONPATH=$PYTHONPATH:$PWD:$PWD/app:$PWD/tests
-```
-### Load data for learning
-```
-@todo
 ```
 
 ### Build container for local dev
@@ -28,8 +36,8 @@ cp frontend/env_dist .env
 docker-compose run app alembic revision --autogenerate
 ```
 ### Run tests
+if need configure `tests/pytest.ini` and run
 ```
-If need configure tests/pytest.ini
 bin/test.sh
 ```
 ### Check lint
