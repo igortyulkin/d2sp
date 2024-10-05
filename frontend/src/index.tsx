@@ -7,7 +7,7 @@ import React from 'react';
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import {Home} from "./components/Home";
-import {Card, H2} from "vienna-ui"
+import {Card, H2, Notifications, Notifier} from "vienna-ui"
 import {ApplicationUserStorageFactory} from "./common/user/ApplicationUserStorage";
 import {List} from "./components/Prediction/List";
 import {Create} from "./components/Prediction/Create";
@@ -28,6 +28,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <Card>
+            <Notifications service={Notifier} align='right' />
             {!ApplicationUserStorageFactory.create().get() ?
                 <H2 style={{textAlign: 'center'}} color={"seattle140"}>DS2P prediction service</H2> : ''}
             <RouterProvider router={router}/>

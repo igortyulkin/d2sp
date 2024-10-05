@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, FormField, Button, H2, Switcher} from 'vienna-ui'
+import {Card, FormField, Button, H2, Switcher, Notifier} from 'vienna-ui'
 import {Back} from 'vienna.icons'
 import {ApplicationUserStorageFactory} from "../../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../../config";
@@ -17,6 +17,7 @@ export const Create = () => {
             generated[key] = Number(Math.round(Math.random()))
         })
         setPayload(generated)
+        Notifier.plain({title: "", message: `Feature generated`})
     }
     const handleSubmit = (values: any) => {
         const requestOptions = {
@@ -32,15 +33,15 @@ export const Create = () => {
             .then((response) => {
                 if (response.ok) {
                     return response.json().then((data) => {
-                        alert(`Task: ${data['task_id']} create successful!`)
+                        Notifier.success({title: "", message: `Task: ${data['task_id']} create successful!`})
                     })
                 }
                 if (409 === response.status) {
                     return response.json().then((data) => {
-                        alert(data['detail'])
+                        Notifier.error({title: "", message: data['detail']})
                     })
                 }
-                alert("Error in create task")
+                Notifier.error({title: "", message: "Error in create task"})
             })
             .catch((error) => console.log(error));
     }

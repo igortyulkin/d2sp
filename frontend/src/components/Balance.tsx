@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, InputNumber, FormField, H2} from 'vienna-ui'
+import {Button, Card, InputNumber, FormField, H2, Notifier} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
@@ -18,7 +18,7 @@ export const Balance = () => {
         };
         fetch(`${apiEntrypoint()}/transactional/up_balance`, requestOptions)
             .then((response) => {
-                return response.json().then((data) => alert(data['message'])).catch(error => console.log(error))
+                return response.json().then((data) => Notifier.success({title: "", message: data['message']})).catch(error => console.log(error))
             })
             .catch((error) => console.log(error));
     }
