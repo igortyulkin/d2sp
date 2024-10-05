@@ -11,9 +11,10 @@ import {Card, H2} from "vienna-ui"
 import {ApplicationUserStorageFactory} from "./common/user/ApplicationUserStorage";
 import {List} from "./components/Prediction/List";
 import {Create} from "./components/Prediction/Create";
+import {Default} from "./components/Default";
 
 const router = createBrowserRouter([
-    {path: "/", element: <Login/>},
+    {path: "/", element: <Default/>},
     {path: "/home", element: <Home/>},
     {path: "/login", element: <Login/>},
     {path: "/registration", element: <Registration/>},

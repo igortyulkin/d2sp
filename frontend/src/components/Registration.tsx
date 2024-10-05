@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Button, EmptyState, FormField, Input, InputPassword, Card, H2} from 'vienna-ui';
+import {Button,Flex, EmptyState, FormField, Input, InputPassword, Card, H2} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
+import {Link} from "react-router-dom";
 
 interface RegistrationState {
     loading: boolean;
@@ -71,6 +72,11 @@ export default class Registration extends Component<any, RegistrationState> {
             <Card onKeyDown={this.onKeyDownEnterHandler}>
                 <H2 color={"seattle140"}>Registration</H2>
                 <br/>
+                <Link to={'/login'}>
+                    <Button design='primary'>Return to login page</Button>
+                </Link>
+                <br/>
+                <br/>
                 <FormField className={'form-field'}>
                     <FormField.Label required>Email</FormField.Label>
                     <FormField.Content>
@@ -121,9 +127,11 @@ export default class Registration extends Component<any, RegistrationState> {
                         />
                     </FormField.Content>
                 </FormField>
-                <Button onClick={this.handleSubmit} design='accent' disabled={this.state.isDisableForm}>
-                    Sign up {this.state.loading ? <EmptyState loading/> : ''}
-                </Button>
+                <Flex>
+                    <Button onClick={this.handleSubmit} design='accent' disabled={this.state.isDisableForm}>
+                        Sign up {this.state.loading ? <EmptyState loading/> : ''}
+                    </Button>
+                </Flex>
             </Card>
         );
     }
