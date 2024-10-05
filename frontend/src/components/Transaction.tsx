@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, EmptyState, Card} from 'vienna-ui'
+import {Table, EmptyState, Card, H2} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
@@ -26,7 +26,8 @@ export const Transaction = () => {
     return (
         <>
             <NavHeader/>
-            <h2>My transactions</h2>
+            <H2 color={"seattle140"}>My transactions</H2>
+            <br/>
             <Card style={{minHeight: '5rem'}}>
                 {!state.loaded ? <EmptyState loading={true}/> : ''}
                 <Table data={state.transactions}>

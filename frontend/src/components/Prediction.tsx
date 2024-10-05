@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Card, EmptyState, Badge} from 'vienna-ui'
+import {Table, Card, EmptyState, Badge, H2} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {CreatePrediction} from "./CreatePrediction";
@@ -30,7 +30,8 @@ export const Prediction = () => {
     return (
         <>
             <NavHeader/>
-            <h2>My prediction tasks</h2>
+            <H2 color={"seattle140"}>My prediction tasks</H2>
+            <br/>
             <CreatePrediction/>
             <br/>
             <br/>

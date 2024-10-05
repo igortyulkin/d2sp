@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, InputNumber, FormField} from 'vienna-ui'
+import {Button, Card, InputNumber, FormField, H2} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
@@ -25,7 +25,8 @@ export const Balance = () => {
     return (
         <>
             <NavHeader/>
-            <h2>Up balance</h2>
+            <H2 color={"seattle140"}>Up balance</H2>
+            <br/>
             <Card style={{height: '10rem'}}>
                 <FormField>
                     <FormField.Content>

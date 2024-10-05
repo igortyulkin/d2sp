@@ -8,9 +8,11 @@ import React from 'react';
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import {Home} from "./components/Home";
-import {Card} from "vienna-ui"
+import {Card, H2} from "vienna-ui"
+import {ApplicationUserStorageFactory} from "./common/user/ApplicationUserStorage";
+
 const router = createBrowserRouter([
-    {path: "/", element: <Home/>},
+    {path: "/", element: <Login/>},
     {path: "/home", element: <Home/>},
     {path: "/login", element: <Login/>},
     {path: "/registration", element: <Registration/>},
@@ -23,6 +25,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <Card>
+            {!ApplicationUserStorageFactory.create().get() ?
+                <H2 style={{textAlign: 'center'}} color={"seattle140"}>DS2P prediction service</H2> : ''}
             <RouterProvider router={router}/>
         </Card>
     </React.StrictMode>

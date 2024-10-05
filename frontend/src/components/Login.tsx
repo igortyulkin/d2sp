@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {ApplicationUserFactory} from '../common/user/ApplicationUser';
 import {ApplicationUserStorageFactory} from '../common/user/ApplicationUserStorage';
-import {Button, Card, EmptyState, FormField, Input, InputPassword} from 'vienna-ui';
+import {Button, Card, EmptyState, FormField, H1, Input, InputPassword} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
 import {Link} from "react-router-dom";
+import './Login.css';
 
 interface LoginState {
     loading: boolean;
@@ -81,8 +82,8 @@ export default class Login extends Component<LoginProps, LoginState> {
             </>
         }
         return (
-            <Card onKeyDown={this.onKeyDownEnterHandler}>
-                <h2>Login</h2>
+            <Card className={'login-center'} onKeyDown={this.onKeyDownEnterHandler}>
+                <H1 color={"seattle140"}>Login</H1>
                 <FormField className={'form-field'}>
                     <FormField.Label required>Email</FormField.Label>
                     <FormField.Content>

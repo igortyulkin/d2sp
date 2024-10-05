@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import {Button, EmptyState, FormField, Input, InputPassword, Card} from 'vienna-ui';
+import {Button, EmptyState, FormField, Input, InputPassword, Card, H2} from 'vienna-ui';
 import {apiEntrypoint} from "../config";
-import {NavHeader} from "./NavHeader";
-import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 
 interface RegistrationState {
     loading: boolean;
@@ -71,62 +69,61 @@ export default class Registration extends Component<any, RegistrationState> {
     render() {
         return (
             <Card onKeyDown={this.onKeyDownEnterHandler}>
-                <NavHeader disabled={ApplicationUserStorageFactory.create().get() === null}/>
-                <Card>
-                    <FormField className={'form-field'}>
-                        <FormField.Label required>Email</FormField.Label>
-                        <FormField.Content>
-                            <Input
-                                name={'Email'}
-                                onChange={(_e, d) => this.setState({...this.state, email: d.value})}
-                                disabled={this.state.isDisableForm}
-                            />
-                        </FormField.Content>
-                    </FormField>
-                    <FormField>
-                        <FormField.Label required>Password</FormField.Label>
-                        <FormField.Content>
-                            <InputPassword
-                                name={'Password'}
-                                onChange={(_e, d) => this.setState({...this.state, password: d.value})}
-                                disabled={this.state.isDisableForm}
-                            />
-                        </FormField.Content>
-                    </FormField>
-                    <FormField>
-                        <FormField.Label required>LastName</FormField.Label>
-                        <FormField.Content>
-                            <Input
-                                name={'Lastname'}
-                                onChange={(_e, d) => this.setState({...this.state, last_name: d.value})}
-                                disabled={this.state.isDisableForm}
-                            />
-                        </FormField.Content>
-                    </FormField>
-                    <FormField>
-                        <FormField.Label required>FirstName</FormField.Label>
-                        <FormField.Content>
-                            <Input
-                                name={'Firstname'}
-                                onChange={(_e, d) => this.setState({...this.state, first_name: d.value})}
-                                disabled={this.state.isDisableForm}
-                            />
-                        </FormField.Content>
-                    </FormField>
-                    <FormField>
-                        <FormField.Label required>MiddleName</FormField.Label>
-                        <FormField.Content>
-                            <Input
-                                name={'MiddleName'}
-                                onChange={(_e, d) => this.setState({...this.state, middle_name: d.value})}
-                                disabled={this.state.isDisableForm}
-                            />
-                        </FormField.Content>
-                    </FormField>
-                    <Button onClick={this.handleSubmit} design='accent' disabled={this.state.isDisableForm}>
-                        Sign up {this.state.loading ? <EmptyState loading/> : ''}
-                    </Button>
-                </Card>
+                <H2 color={"seattle140"}>Registration</H2>
+                <br/>
+                <FormField className={'form-field'}>
+                    <FormField.Label required>Email</FormField.Label>
+                    <FormField.Content>
+                        <Input
+                            name={'Email'}
+                            onChange={(_e, d) => this.setState({...this.state, email: d.value})}
+                            disabled={this.state.isDisableForm}
+                        />
+                    </FormField.Content>
+                </FormField>
+                <FormField>
+                    <FormField.Label required>Password</FormField.Label>
+                    <FormField.Content>
+                        <InputPassword
+                            name={'Password'}
+                            onChange={(_e, d) => this.setState({...this.state, password: d.value})}
+                            disabled={this.state.isDisableForm}
+                        />
+                    </FormField.Content>
+                </FormField>
+                <FormField>
+                    <FormField.Label required>LastName</FormField.Label>
+                    <FormField.Content>
+                        <Input
+                            name={'Lastname'}
+                            onChange={(_e, d) => this.setState({...this.state, last_name: d.value})}
+                            disabled={this.state.isDisableForm}
+                        />
+                    </FormField.Content>
+                </FormField>
+                <FormField>
+                    <FormField.Label required>FirstName</FormField.Label>
+                    <FormField.Content>
+                        <Input
+                            name={'Firstname'}
+                            onChange={(_e, d) => this.setState({...this.state, first_name: d.value})}
+                            disabled={this.state.isDisableForm}
+                        />
+                    </FormField.Content>
+                </FormField>
+                <FormField>
+                    <FormField.Label>MiddleName</FormField.Label>
+                    <FormField.Content>
+                        <Input
+                            name={'MiddleName'}
+                            onChange={(_e, d) => this.setState({...this.state, middle_name: d.value})}
+                            disabled={this.state.isDisableForm}
+                        />
+                    </FormField.Content>
+                </FormField>
+                <Button onClick={this.handleSubmit} design='accent' disabled={this.state.isDisableForm}>
+                    Sign up {this.state.loading ? <EmptyState loading/> : ''}
+                </Button>
             </Card>
         );
     }

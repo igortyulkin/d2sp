@@ -1,5 +1,5 @@
 import React from 'react';
-import {Flex, P, Card} from 'vienna-ui'
+import {Flex, P, Card, H2} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {DateFormatter} from "../common/date/DateFormatter";
 import {apiEntrypoint} from "../config";
@@ -27,7 +27,8 @@ export const Profile = () => {
     return (
         <>
             <NavHeader/>
-            <h2>Profile</h2>
+            <H2 color={"seattle140"}>My Profile</H2>
+            <br/>
             <Card>
                 <Flex direction={'column'}>
                     <P><b>Email: </b>{state.user ? state.user['email'] : null}</P><br/>

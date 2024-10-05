@@ -1,7 +1,7 @@
 import React from 'react';
 import {Logout} from "./Logout";
 import {Link} from "react-router-dom";
-import {Badge,Tabs,Flex} from "vienna-ui";
+import {H1, Badge, Tabs, Flex} from "vienna-ui";
 import {Home, PersonLevel, MoneyBag, CashTransactions, Premium} from "vienna.icons";
 
 
@@ -12,7 +12,7 @@ export const NavHeader = (props: { disabled?: boolean }) => {
     return (
         <div className="App">
             <Flex>
-                <h1>DS2P prediction service</h1>
+                <H1 color={"seattle140"}>DS2P prediction service</H1>
                 <Logout disabled={props.disabled}/>
             </Flex>
             <div style={{height: '5rem'}}>
