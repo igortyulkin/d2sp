@@ -1,6 +1,7 @@
 volumes:
   postgres_volume_ds2p:
   rabbitmq_volume_ds2p:
+
 services:
   app:
     build:
