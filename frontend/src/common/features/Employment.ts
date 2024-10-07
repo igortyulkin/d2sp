@@ -1,8 +1,8 @@
 export enum Employment {
  FULL = '0',
- PROJECT_WORK = '2',
- STAGING = '3',
- PART_TIME = '4',
+ PROJECT_WORK = '1',
+ STAGING = '2',
+ PART_TIME = '3',
 }
 
 export const EmploymentAliases: Record<any, string> = {

@@ -3,7 +3,6 @@ export enum SoftFeatures {
     "taym-menedzhment" = "taym-menedzhment",
     "schedule" = "schedule",
     "analiz dannykh" = "analiz dannykh",
-    "employment" = "employment",
     "role" = "role",
     "analitika" = "analitika",
     "city" = "city",
