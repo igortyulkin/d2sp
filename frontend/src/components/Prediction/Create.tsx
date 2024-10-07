@@ -1,25 +1,44 @@
 import React, {useState} from 'react';
-import {Card, FormField, Button, H2, Switcher, Notifier} from 'vienna-ui'
-import {Back} from 'vienna.icons'
+import {Card, FormField, Button, H2, Switcher, Notifier, Select, H5, Groups} from 'vienna-ui'
+import {Back, Premium} from 'vienna.icons'
 import {ApplicationUserStorageFactory} from "../../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../../config";
 import {NavHeader} from "../NavHeader";
 import {Link} from "react-router-dom";
-import {Features} from "../../common/features/Features";
+import {SoftFeatures} from "../../common/features/SoftFeatures";
+import {HardFeatures} from "../../common/features/HardFeatures";
+import {FEATURE_ALIASES} from "../../common/features/FeaturesAliases";
 import {Form, Field} from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
+import {Experience, ExperienceAliases} from "../../common/features/Experience";
 
 export const Create = () => {
     const [payload, setPayload] = useState({});
+    const [experience, setExperience] = React.useState();
+    const [isItCompany, setIsItCompany] = React.useState();
     const handleGenerate = () => {
         let generated: any = {}
-        Object.keys(Features).map((key) => {
+        Object.keys(SoftFeatures).concat(Object.keys(HardFeatures)).map((key) => {
             generated[key] = Number(Math.round(Math.random()))
         })
+        generated['is_it_company'] = Number(Math.round(Math.random()))
+        generated['experience'] = Number(Math.floor(Math.random() * Object.keys(Experience).length))
         setPayload(generated)
+
+        //@ts-ignore
+        let experience_value = String(generated['experience']) ?? '4'
+        //@ts-ignore
+        const experience_key = Object.keys(Experience)[Object.values(Experience).indexOf(experience_value)] ?? undefined
+        //@ts-ignore
+        setExperience({'key': experience_key, 'value': experience_value})
+
         Notifier.plain({title: "", message: `Feature generated`})
     }
+    const requiredField = (value: any) => {
+        return value ? undefined : 'Поле не должно быть пустым';
+    };
     const handleSubmit = (values: any) => {
+        console.log(values)
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -45,6 +64,7 @@ export const Create = () => {
             })
             .catch((error) => console.log(error));
     }
+    // @ts-ignore
     return (
         <>
             <NavHeader/>
@@ -54,7 +74,6 @@ export const Create = () => {
                 <Button design='primary' style={{margin: "5px"}}><Back/>Back to list</Button>
             </Link>
             <br/>
-            <Button design='accent' onClick={handleGenerate} style={{margin: "5px"}}>Generate random features</Button>
             <br/>
             <Card>
                 <Form
@@ -69,30 +88,120 @@ export const Create = () => {
                     subscription={{submitting: true, errors: true, values: true}}
                     render={({handleSubmit, values, form}) => (
                         <form onSubmit={handleSubmit} autoComplete={'off'}>
-                            <Button type='submit' design='accent'>Create</Button>
-                            <div style={{display: "flex", flexFlow: "wrap"}}>
-                                {
-                                    Object.keys(Features).map((key, idx) => {
-                                        return <FormField style={{minWidth: "15rem"}}>
-                                            <Field name={key} id={idx} type={'checkbox'}>
-                                                {(props) => (
-                                                    <Switcher
-                                                        name={props.input.name}
-                                                        style={{paddingTop: '20px'}}
-                                                        checked={values[key] ?? false}
-                                                        onChange={(e, data) => {
-                                                            /*@ts-ignore*/
-                                                            props.input.onChange(e, data !== undefined ? data.value : false);
-                                                            form.mutators.updateField(key, e.target.checked);
-                                                        }}/>
-                                                )}
-                                            </Field>&nbsp;
-                                            {/*@ts-ignore*/}
-                                            {Features[key] ?? ''}
-                                        </FormField>
-                                    })
-                                }
-                            </div>
+                            <Groups>
+                                <Button design='primary' onClick={handleGenerate} style={{margin: "5px"}}>
+                                    <Premium/>I`am Feeling Lucky
+                                </Button>
+                                <Button type='submit' design='accent'>Create</Button>
+                            </Groups>
+                            <Card>
+                                <H5 color={'seattle140'}>Общие параметры</H5>
+                                <FormField>
+                                    <FormField.Label required={true}>Опыт работы</FormField.Label>
+                                    <FormField.Content>
+                                        <Field
+                                            size={'l'}
+                                            name={'experience'}
+                                            validate={requiredField}
+                                            maxLength={255}
+                                        >
+                                            {(props) => (
+                                                <Select placeholder='Выберите ваш опыт работы'
+                                                    //@ts-ignore
+                                                        value={experience}
+                                                        onSelect={(e, data: any) => {
+                                                            form.mutators.updateField('experience', data.value.value);
+                                                            setExperience(data.value)
+                                                        }}
+                                                        valueToString={(data) => ExperienceAliases[data?.value] ?? ''}
+                                                >
+                                                    {
+                                                        Object.keys(Experience).map((key, idx) => {
+                                                            return <Select.Option
+                                                                valueToString={(key) => ExperienceAliases[key?.value] ?? ''}
+                                                                //@ts-ignore
+                                                                key={idx} value={{key: key, value: Experience[key]}}/>
+                                                        })
+                                                    }
+                                                </Select>
+                                            )}
+                                        </Field>
+                                    </FormField.Content>
+                                </FormField>
+                                <FormField>
+                                    <FormField.Label required={true}>Работа только в IT компании</FormField.Label>
+                                    <FormField.Content>
+                                        <Field size={'l'} name={'is_it_company'} maxLength={255} type={'checkbox'}>
+                                            {(props) => (
+                                                <Switcher
+                                                    name={props.input.name}
+                                                    style={{paddingTop: '20px'}}
+                                                    //@ts-ignore
+                                                    checked={isItCompany || (payload['is_it_company'] ?? false)}
+                                                    onChange={(e, data) => {
+                                                        //@ts-ignore
+                                                        props.input.onChange(e, data !== undefined ? data.value : false);
+                                                        form.mutators.updateField('is_it_company', Boolean(e.target.checked));
+                                                        // @ts-ignore
+                                                        setIsItCompany(Boolean(e.target.checked))
+                                                    }}/>
+                                            )}
+                                        </Field>
+                                    </FormField.Content>
+                                </FormField>
+                            </Card>&nbsp;
+                            <Card>
+                                <H5 color={'seattle140'}>Soft skills</H5>
+                                <div style={{display: "flex", flexFlow: "wrap"}}>
+                                    {
+                                        Object.keys(SoftFeatures).map((key, idx) => {
+                                            return <FormField style={{minWidth: "15rem"}}>
+                                                <Field name={key} id={idx} type={'checkbox'}>
+                                                    {(props) => (
+                                                        <Switcher
+                                                            name={props.input.name}
+                                                            style={{paddingTop: '20px'}}
+                                                            checked={values[key] ?? false}
+                                                            onChange={(e, data) => {
+                                                                /*@ts-ignore*/
+                                                                props.input.onChange(e, data !== undefined ? data.value : false);
+                                                                form.mutators.updateField(key, e.target.checked);
+                                                            }}/>
+                                                    )}
+                                                </Field>&nbsp;
+                                                {/*@ts-ignore*/}
+                                                {FEATURE_ALIASES[key] ?? key}
+                                            </FormField>
+                                        })
+                                    }
+                                </div>
+                            </Card>
+                            <Card>
+                                <H5 color={'seattle140'}>Hard skills</H5>
+                                <div style={{display: "flex", flexFlow: "wrap"}}>
+                                    {
+                                        Object.keys(SoftFeatures).map((key, idx) => {
+                                            return <FormField style={{minWidth: "15rem"}}>
+                                                <Field name={key} id={idx} type={'checkbox'}>
+                                                    {(props) => (
+                                                        <Switcher
+                                                            name={props.input.name}
+                                                            style={{paddingTop: '20px'}}
+                                                            checked={values[key] ?? false}
+                                                            onChange={(e, data) => {
+                                                                /*@ts-ignore*/
+                                                                props.input.onChange(e, data !== undefined ? data.value : false);
+                                                                form.mutators.updateField(key, e.target.checked);
+                                                            }}/>
+                                                    )}
+                                                </Field>&nbsp;
+                                                {/*@ts-ignore*/}
+                                                {FEATURE_ALIASES[key] ?? key}
+                                            </FormField>
+                                        })
+                                    }
+                                </div>
+                            </Card>
                             <br/>
                         </form>
                     )}
