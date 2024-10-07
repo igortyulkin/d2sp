@@ -48,7 +48,7 @@ export const List = () => {
                         {(item) => <Badge color={"seattle05"}>{item.status}</Badge>}
                     </Table.Column>
                     <Table.Column id='quality' title='Quality'>
-                        {(item) => item.quality}
+                        {(item) => item.quality + ' ' + 'RUB'}
                     </Table.Column>
                 </Table>
             </Card>
