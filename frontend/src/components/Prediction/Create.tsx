@@ -95,9 +95,9 @@ export const Create = () => {
                                 <Button type='submit' design='accent'>Create</Button>
                             </Groups>
                             <Card>
-                                <H5 color={'seattle140'}>Общие параметры</H5>
+                                <H5 color={'seattle140'}>About you</H5>
                                 <FormField>
-                                    <FormField.Label required={true}>Опыт работы</FormField.Label>
+                                    <FormField.Label required={true}>Work experience</FormField.Label>
                                     <FormField.Content>
                                         <Field
                                             size={'l'}
@@ -106,7 +106,7 @@ export const Create = () => {
                                             maxLength={255}
                                         >
                                             {(props) => (
-                                                <Select placeholder='Выберите ваш опыт работы'
+                                                <Select placeholder='Select your work experience'
                                                     //@ts-ignore
                                                         value={experience}
                                                         onSelect={(e, data: any) => {
@@ -129,7 +129,7 @@ export const Create = () => {
                                     </FormField.Content>
                                 </FormField>
                                 <FormField>
-                                    <FormField.Label required={true}>Работа только в IT компании</FormField.Label>
+                                    <FormField.Label required={true}>Only IT Company</FormField.Label>
                                     <FormField.Content>
                                         <Field size={'l'} name={'is_it_company'} maxLength={255} type={'checkbox'}>
                                             {(props) => (
