@@ -180,7 +180,7 @@ export const Create = () => {
                                 <H5 color={'seattle140'}>Hard skills</H5>
                                 <div style={{display: "flex", flexFlow: "wrap"}}>
                                     {
-                                        Object.keys(SoftFeatures).map((key, idx) => {
+                                        Object.keys(HardFeatures).map((key, idx) => {
                                             return <FormField style={{minWidth: "15rem"}}>
                                                 <Field name={key} id={idx} type={'checkbox'}>
                                                     {(props) => (
