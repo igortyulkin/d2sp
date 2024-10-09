@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, FormField, Button, H2, Switcher, Notifier, Select, H5, Groups} from 'vienna-ui'
+import {Card, FormField, Button, H2, Switcher, Notifier, Select, H5, Groups, Flex} from 'vienna-ui'
 import {Back, Premium} from 'vienna.icons'
 import {ApplicationUserStorageFactory} from "../../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../../config";
@@ -115,122 +115,127 @@ export const Create = () => {
                                 </Groups>
                                 <Card>
                                     <H5 color={'seattle140'}>About you</H5>
-                                    <FormField>
-                                        <FormField.Label required={true}>Work experience</FormField.Label>
-                                        <FormField.Content>
-                                            <Field
-                                                size={'l'}
-                                                name={'experience'}
-                                                maxLength={255}
-                                            >
-                                                {(props) => (
-                                                    <Select placeholder='Select your work experience'
+                                    <Flex>
+                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                            <FormField.Label required={true}>Work experience</FormField.Label>
+                                            <FormField.Content>
+                                                <Field
+                                                    size={'l'}
+                                                    name={'experience'}
+                                                    maxLength={255}
+                                                >
+                                                    {(props) => (
+                                                        <Select placeholder='Select your work experience'
                                                             //@ts-ignore
-                                                            value={experience}
-                                                            onSelect={(e, data: any) => {
-                                                                form.mutators.updateField('experience', data.value.value);
-                                                                setExperience(data.value)
-                                                            }}
-                                                            valueToString={(data) => ExperienceAliases[data?.value] ?? ''}
-                                                    >
-                                                        {
-                                                            Object.keys(Experience).map((key, idx) => {
-                                                                return <Select.Option
-                                                                    valueToString={(key) => ExperienceAliases[key?.value] ?? ''}
-                                                                    key={idx}
-                                                                    //@ts-ignore
-                                                                    value={{key: key, value: Experience[key]}}/>
-                                                            })
-                                                        }
-                                                    </Select>
-                                                )}
-                                            </Field>
-                                        </FormField.Content>
-                                    </FormField>
-                                    <FormField>
-                                        <FormField.Label required={true}>Work employment</FormField.Label>
-                                        <FormField.Content>
-                                            <Field
-                                                size={'l'}
-                                                name={'employment'}
-                                                maxLength={255}
-                                            >
-                                                {(props) => (
-                                                    <Select placeholder='Select your work employment'
+                                                                value={experience}
+                                                                onSelect={(e, data: any) => {
+                                                                    form.mutators.updateField('experience', data.value.value);
+                                                                    setExperience(data.value)
+                                                                }}
+                                                                valueToString={(data) => ExperienceAliases[data?.value] ?? ''}
+                                                        >
+                                                            {
+                                                                Object.keys(Experience).map((key, idx) => {
+                                                                    return <Select.Option
+                                                                        valueToString={(key) => ExperienceAliases[key?.value] ?? ''}
+                                                                        key={idx}
+                                                                        //@ts-ignore
+                                                                        value={{key: key, value: Experience[key]}}/>
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    )}
+                                                </Field>
+                                            </FormField.Content>
+                                        </FormField>
+                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                            <FormField.Label required={true}>Work employment</FormField.Label>
+                                            <FormField.Content>
+                                                <Field
+                                                    size={'l'}
+                                                    name={'employment'}
+                                                    maxLength={255}
+                                                >
+                                                    {(props) => (
+                                                        <Select placeholder='Select your work employment'
                                                             //@ts-ignore
-                                                            value={employment}
-                                                            onSelect={(e, data: any) => {
-                                                                form.mutators.updateField('employment', data.value.value);
-                                                                setEmployment(data.value)
-                                                            }}
-                                                            valueToString={(data) => EmploymentAliases[data?.value] ?? ''}
-                                                    >
-                                                        {
-                                                            Object.keys(Employment).map((key, idx) => {
-                                                                return <Select.Option
-                                                                    valueToString={(key) => EmploymentAliases[key?.value] ?? ''}
-                                                                    key={idx}
-                                                                    //@ts-ignore
-                                                                    value={{key: key, value: Employment[key]}}/>
-                                                            })
-                                                        }
-                                                    </Select>
-                                                )}
-                                            </Field>
-                                        </FormField.Content>
-                                    </FormField>
-                                    <FormField>
-                                        <FormField.Label required={true}>Work schedule</FormField.Label>
-                                        <FormField.Content>
-                                            <Field
-                                                size={'l'}
-                                                name={'schedule'}
-                                                maxLength={255}
-                                            >
-                                                {(props) => (
-                                                    <Select placeholder='Select your work schedule'
+                                                                value={employment}
+                                                                onSelect={(e, data: any) => {
+                                                                    form.mutators.updateField('employment', data.value.value);
+                                                                    setEmployment(data.value)
+                                                                }}
+                                                                valueToString={(data) => EmploymentAliases[data?.value] ?? ''}
+                                                        >
+                                                            {
+                                                                Object.keys(Employment).map((key, idx) => {
+                                                                    return <Select.Option
+                                                                        valueToString={(key) => EmploymentAliases[key?.value] ?? ''}
+                                                                        key={idx}
+                                                                        //@ts-ignore
+                                                                        value={{key: key, value: Employment[key]}}/>
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    )}
+                                                </Field>
+                                            </FormField.Content>
+                                        </FormField>
+                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                            <FormField.Label required={true}>Work schedule</FormField.Label>
+                                            <FormField.Content>
+                                                <Field
+                                                    size={'l'}
+                                                    name={'schedule'}
+                                                    maxLength={255}
+                                                >
+                                                    {(props) => (
+                                                        <Select placeholder='Select your work schedule'
                                                             //@ts-ignore
-                                                            value={schedule}
-                                                            onSelect={(e, data: any) => {
-                                                                form.mutators.updateField('schedule', data.value.value);
-                                                                setSchedule(data.value)
-                                                            }}
-                                                            valueToString={(data) => ScheduleAliases[data?.value] ?? ''}
-                                                    >
-                                                        {
-                                                            Object.keys(Schedule).map((key, idx) => {
-                                                                return <Select.Option
-                                                                    valueToString={(key) => ScheduleAliases[key?.value] ?? ''}
-                                                                    //@ts-ignore
-                                                                    key={idx} value={{key: key, value: Schedule[key]}}/>
-                                                            })
-                                                        }
-                                                    </Select>
-                                                )}
-                                            </Field>
-                                        </FormField.Content>
-                                    </FormField>
-                                    <FormField>
-                                        <FormField.Label required={true}>Only IT Company</FormField.Label>
-                                        <FormField.Content>
-                                            <Field size={'l'} name={'is_it_company'} maxLength={255} type={'checkbox'}>
-                                                {(props) => (
-                                                    <Switcher
-                                                        name={props.input.name}
-                                                        style={{paddingTop: '20px'}}
-                                                        //@ts-ignore
-                                                        checked={isItCompany || (payload['is_it_company'] ?? false)}
-                                                        onChange={(e, data) => {
+                                                                value={schedule}
+                                                                onSelect={(e, data: any) => {
+                                                                    form.mutators.updateField('schedule', data.value.value);
+                                                                    setSchedule(data.value)
+                                                                }}
+                                                                valueToString={(data) => ScheduleAliases[data?.value] ?? ''}
+                                                        >
+                                                            {
+                                                                Object.keys(Schedule).map((key, idx) => {
+                                                                    return <Select.Option
+                                                                        valueToString={(key) => ScheduleAliases[key?.value] ?? ''}
+                                                                        //@ts-ignore
+                                                                        key={idx}
+                                                                        //@ts-ignore
+                                                                        value={{key: key, value: Schedule[key]}}/>
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    )}
+                                                </Field>
+                                            </FormField.Content>
+                                        </FormField>
+                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                            <FormField.Label required={true}>Only IT Company</FormField.Label>
+                                            <FormField.Content>
+                                                <Field size={'l'} name={'is_it_company'} maxLength={255}
+                                                       type={'checkbox'}>
+                                                    {(props) => (
+                                                        <Switcher
+                                                            name={props.input.name}
+                                                            style={{paddingTop: '20px'}}
                                                             //@ts-ignore
-                                                            props.input.onChange(e, data !== undefined ? data.value : false);
-                                                            form.mutators.updateField('is_it_company', Boolean(e.target.checked));
-                                                            // @ts-ignore
-                                                            setIsItCompany(Boolean(e.target.checked))
-                                                        }}/>
-                                                )}
-                                            </Field>
-                                        </FormField.Content>
-                                    </FormField>
+                                                            checked={isItCompany || (payload['is_it_company'] ?? false)}
+                                                            onChange={(e, data) => {
+                                                                //@ts-ignore
+                                                                props.input.onChange(e, data !== undefined ? data.value : false);
+                                                                form.mutators.updateField('is_it_company', Boolean(e.target.checked));
+                                                                // @ts-ignore
+                                                                setIsItCompany(Boolean(e.target.checked))
+                                                            }}/>
+                                                    )}
+                                                </Field>
+                                            </FormField.Content>
+                                        </FormField>
+                                    </Flex>
                                 </Card>&nbsp;
                                 <Card>
                                     <H5 color={'seattle140'}>Soft skills</H5>
