@@ -3,6 +3,7 @@ import {Button, Card, InputNumber, FormField, H2, Notifier} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
+import {MoneyBag} from "vienna.icons";
 
 export const Balance = () => {
     const [state, setState] = React.useState({credit_count: 0})
@@ -35,7 +36,7 @@ export const Balance = () => {
                     </FormField.Content>
                 </FormField>
                 <br/>
-                <Button name='test' design="accent" onClick={handleUpBalance}>Submit</Button>
+                <Button name='test' design="accent" onClick={handleUpBalance}><MoneyBag/>UP my balance</Button>
             </Card>
         </>
     )
