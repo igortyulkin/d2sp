@@ -242,7 +242,7 @@ export const Create = () => {
                                     <div style={{display: "flex", flexFlow: "wrap"}}>
                                         {
                                             Object.keys(SoftFeatures).map((key, idx) => {
-                                                return <FormField style={{minWidth: "15rem"}}>
+                                                return <FormField style={{minWidth: "20rem"}}>
                                                     <Field name={key} id={idx} type={'checkbox'}>
                                                         {(props) => (
                                                             <Switcher
@@ -268,7 +268,7 @@ export const Create = () => {
                                     <div style={{display: "flex", flexFlow: "wrap"}}>
                                         {
                                             Object.keys(HardFeatures).map((key, idx) => {
-                                                return <FormField style={{minWidth: "15rem"}}>
+                                                return <FormField style={{minWidth: "20rem"}}>
                                                     <Field name={key} id={idx} type={'checkbox'}>
                                                         {(props) => (
                                                             <Switcher
