@@ -1,11 +1,7 @@
 export enum SoftFeatures {
-    "metro" = "metro",
-    "taym-menedzhment" = "taym-menedzhment",
-    "schedule" = "schedule",
-    "analiz dannykh" = "analiz dannykh",
-    "role" = "role",
-    "analitika" = "analitika",
-    "city" = "city",
-    "obuchenie i razvitie" = "obuchenie i razvitie",
-    "need_eng" = "need_eng"
+    'need_eng' = 'need_eng',
+    'stremlenie k professionalnomu rostu' = 'stremlenie k professionalnomu rostu',
+    'taym-menedzhment' = 'taym-menedzhment',
+    'obuchenie i razvitie' = 'obuchenie i razvitie',
+    'kriticheskoe myshlenie' = 'kriticheskoe myshlenie',
 }

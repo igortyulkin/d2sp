@@ -4,7 +4,7 @@ import {ApplicationUserStorageFactory} from "../../common/user/ApplicationUserSt
 import {apiEntrypoint} from "../../config";
 import {NavHeader} from "../NavHeader";
 import {Link} from "react-router-dom";
-import {AddRing} from 'vienna.icons'
+import {AddRing, MoneyBag} from 'vienna.icons'
 
 export const List = () => {
     const [state, setState] = React.useState({tasks: [], loaded: false})
@@ -45,10 +45,10 @@ export const List = () => {
                         {(item) => item.id}
                     </Table.Column>
                     <Table.Column id='status' title='Status'>
-                        {(item) => <Badge color={"seattle05"}>{item.status}</Badge>}
+                        {(item) => <Badge size={"s"} color={"seattle05"}>{item.status}</Badge>}
                     </Table.Column>
                     <Table.Column id='quality' title='Quality'>
-                        {(item) => item.quality + ' ' + 'RUB'}
+                        {(item) => <Badge size={"s"}>{item.quality + ' ' + 'RUB'}<MoneyBag/></Badge>}
                     </Table.Column>
                 </Table>
             </Card>

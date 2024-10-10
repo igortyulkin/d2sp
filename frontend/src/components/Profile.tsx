@@ -1,9 +1,10 @@
 import React from 'react';
-import {Flex, P, Card, H2} from 'vienna-ui'
+import {Flex, Card, H2, Badge} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
 import {DateFormatter} from "../common/date/DateFormatter";
 import {apiEntrypoint} from "../config";
 import {NavHeader} from "./NavHeader";
+import {MoneyBag} from "vienna.icons";
 
 export const Profile = () => {
     const [state, setState] = React.useState({user: null})
@@ -31,13 +32,34 @@ export const Profile = () => {
             <br/>
             <Card>
                 <Flex direction={'column'}>
-                    <P><b>Email: </b>{state.user ? state.user['email'] : null}</P><br/>
-                    <P><b>Role: </b>{state.user ? state.user['role'] : null}</P><br/>
-                    <P><b>FirstName: </b>{state.user ? state.user['first_name'] : null}</P><br/>
-                    <P><b>LastName: </b>{state.user ? state.user['last_name'] : null}</P><br/>
-                    <P><b>MiddleName: </b>{state.user ? state.user['middle_name'] : null}</P><br/>
-                    <P><b>Balance: </b>{state.user ? state.user['credit_count'] : null}</P><br/>
-                    <P><b>Registration date: </b>{state.user ? DateFormatter.toDateRow(state.user['created_at'], 'T') : null}</P><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>Email: </b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? state.user['email'] : null}</Badge></div>
+                    </Flex><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>Role: </b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? state.user['role'] : null}</Badge></div>
+                    </Flex><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>FirstName: </b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? state.user['first_name'] : null}</Badge></div>
+                    </Flex><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>LastName: </b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? state.user['last_name'] : null}</Badge></div>
+                    </Flex><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>MiddleName: </b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? state.user['middle_name'] : null}</Badge></div>
+                    </Flex><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>Balance: </b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? state.user['credit_count'] : null}<MoneyBag/></Badge></div>
+                    </Flex><br/>
+                    <Flex>
+                        <div style={{minWidth: '10rem'}}><b>Registration date:</b></div>
+                        <div><Badge size={"l"} color={"paris10"}>{state.user ? DateFormatter.toDateRow(state.user['created_at'], 'T') : null}</Badge></div>
+                    </Flex><br/>
                 </Flex>
             </Card>
         </>
