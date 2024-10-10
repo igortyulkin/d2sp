@@ -28,6 +28,7 @@ export const Create = () => {
         Object.keys(SoftFeatures).concat(Object.keys(HardFeatures)).map((key) => {
             generated[key] = Number(Math.round(Math.random()))
         })
+        generated['metro'] = Number(Math.round(Math.random()))
         generated['is_it_company'] = Number(Math.round(Math.random()))
         generated['experience'] = Number(Math.floor(Math.random() * Object.keys(Experience).length))
         generated['employment'] = Number(Math.floor(Math.random() * Object.keys(Employment).length))
@@ -120,7 +121,7 @@ export const Create = () => {
                                 <Card>
                                     <H5 color={'seattle140'}>About you</H5>
                                     <Flex>
-                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                        <FormField style={{padding: "1rem", minWidth: "18rem"}}>
                                             <FormField.Label required={true}>Work experience</FormField.Label>
                                             <FormField.Content>
                                                 <Field
@@ -152,7 +153,7 @@ export const Create = () => {
                                                 </Field>
                                             </FormField.Content>
                                         </FormField>
-                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                        <FormField style={{padding: "1rem", minWidth: "18rem"}}>
                                             <FormField.Label required={true}>Work employment</FormField.Label>
                                             <FormField.Content>
                                                 <Field
@@ -184,7 +185,7 @@ export const Create = () => {
                                                 </Field>
                                             </FormField.Content>
                                         </FormField>
-                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                        <FormField style={{padding: "1rem", minWidth: "18rem"}}>
                                             <FormField.Label required={true}>Work schedule</FormField.Label>
                                             <FormField.Content>
                                                 <Field
@@ -217,7 +218,7 @@ export const Create = () => {
                                                 </Field>
                                             </FormField.Content>
                                         </FormField>
-                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                        <FormField style={{padding: "1rem", minWidth: "18rem"}}>
                                             <FormField.Label required={true}>City</FormField.Label>
                                             <FormField.Content>
                                                 <Field size={'l'} name={'city'} maxLength={255}>
@@ -246,8 +247,7 @@ export const Create = () => {
                                                 </Field>
                                             </FormField.Content>
                                         </FormField>
-
-                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                        <FormField style={{padding: "1rem", minWidth: "18rem"}}>
                                             <FormField.Label required={true}>Only IT Company</FormField.Label>
                                             <FormField.Content>
                                                 <Field size={'l'} name={'is_it_company'} maxLength={255}
