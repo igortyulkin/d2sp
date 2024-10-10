@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Card, FormField, Button, H2, Switcher, Notifier, Select, H5, Groups, Flex} from 'vienna-ui'
-import {Back, Premium} from 'vienna.icons'
+import {Card, FormField, Button, H2, Switcher, Notifier, Select, H5, Groups, Flex, Search} from 'vienna-ui'
+import {Back, Premium, Task} from 'vienna.icons'
 import {ApplicationUserStorageFactory} from "../../common/user/ApplicationUserStorage";
 import {apiEntrypoint} from "../../config";
 import {NavHeader} from "../NavHeader";
@@ -13,6 +13,7 @@ import arrayMutators from 'final-form-arrays';
 import {Experience, ExperienceAliases} from "../../common/features/Experience";
 import {Employment, EmploymentAliases} from "../../common/features/Employment";
 import {Schedule, ScheduleAliases} from "../../common/features/Schedule";
+import {City} from "../../common/features/City";
 
 export const Create = () => {
     const [payload, setPayload] = useState({});
@@ -20,6 +21,8 @@ export const Create = () => {
     const [schedule, setSchedule] = React.useState();
     const [employment, setEmployment] = React.useState();
     const [isItCompany, setIsItCompany] = React.useState();
+    const [city, setCity] = React.useState();
+    const [suggestsCity, setSuggestsCity] = React.useState([])
     const handleGenerate = () => {
         let generated: any = {}
         Object.keys(SoftFeatures).concat(Object.keys(HardFeatures)).map((key) => {
@@ -29,7 +32,7 @@ export const Create = () => {
         generated['experience'] = Number(Math.floor(Math.random() * Object.keys(Experience).length))
         generated['employment'] = Number(Math.floor(Math.random() * Object.keys(Employment).length))
         generated['schedule'] = Number(Math.floor(Math.random() * Object.keys(Schedule).length))
-
+        generated['city'] = Number(Math.floor(Math.random() * Object.keys(City).length))
         //@ts-ignore
         let experience_value = generated['experience'] ?? '3'
         //@ts-ignore
@@ -50,12 +53,15 @@ export const Create = () => {
         const schedule_key = Object.keys(Schedule)[Object.values(Schedule).indexOf(schedule_value)] ?? undefined
         //@ts-ignore
         setSchedule({'key': schedule_key, 'value': schedule_value})
-        console.log(generated)
+
+        //@ts-ignore
+        setCity(City[generated['city'] ?? 68] ?? "Москва")
+        setSuggestsCity([])
+
         setPayload(generated)
         Notifier.plain({title: "", message: `Feature generated`})
     }
     const handleSubmit = (values: any, errors: any) => {
-        console.log(errors)
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -81,7 +87,6 @@ export const Create = () => {
             })
             .catch((error) => console.log(error));
     }
-    // @ts-ignore
     return (
         <>
             <NavHeader/>
@@ -104,7 +109,6 @@ export const Create = () => {
                     }}
                     subscription={{submitting: true, errors: true, values: true}}
                     render={({handleSubmit, values, form, errors}) => {
-                        console.log(errors)
                         return (
                             <form onSubmit={handleSubmit} autoComplete={'off'}>
                                 <Groups>
@@ -213,6 +217,36 @@ export const Create = () => {
                                                 </Field>
                                             </FormField.Content>
                                         </FormField>
+                                        <FormField style={{padding: "1rem", minWidth: "20rem"}}>
+                                            <FormField.Label required={true}>City</FormField.Label>
+                                            <FormField.Content>
+                                                <Field size={'l'} name={'city'} maxLength={255}>
+                                                    {(props) => (
+                                                        <Search
+                                                            suggests={suggestsCity}
+                                                            value={city}
+                                                            placeholder='Начните ввод'
+                                                            onChange={(e, data) => {
+                                                                const mock = Object.values(City)
+                                                                // @ts-ignore
+                                                                const regexp = new RegExp(`^${escape(data.value.toUpperCase())}`);
+                                                                // @ts-ignore
+                                                                const temp = (data.value && mock.filter((m) => regexp.test(escape(m.toUpperCase())))) || [];
+                                                                // @ts-ignore
+                                                                setSuggestsCity(temp);
+                                                                // @ts-ignore
+                                                                setCity(data.value);
+                                                            }}
+                                                            onSelect={(e, data) => {
+                                                                // @ts-ignore
+                                                                setCity(data.value);
+                                                            }}
+                                                        />
+                                                    )}
+                                                </Field>
+                                            </FormField.Content>
+                                        </FormField>
+
                                         <FormField style={{padding: "1rem", minWidth: "20rem"}}>
                                             <FormField.Label required={true}>Only IT Company</FormField.Label>
                                             <FormField.Content>
