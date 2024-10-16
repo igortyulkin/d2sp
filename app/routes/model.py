@@ -16,7 +16,8 @@ from common.model_task.task_service import create_task, get_task, get_user_tasks
 from models.enum.task_status import TaskStatus
 from models.model_task import ModelTask
 from routes.common import check_user_exists, check_allow_credits
-from schema.model_schema import CreateTaskRequest, CreateTaskResponse, GetTaskResponse, GetUserTasksResponse
+from schema.model_schema import CreateTaskRequest, CreateTaskResponse, GetTaskResponse, GetUserTasksResponse, \
+    create_get_task_item
 
 model_route = APIRouter(tags=['model'])
 path_to_file = Path(__file__).parent.parent / config['model_file']
@@ -70,6 +71,6 @@ def task_get(task_id: int,
 def task_get_list(auth_user: AuthUser = Depends(authenticate),
                   session=Depends(get_session)) -> GetUserTasksResponse:
     response = GetUserTasksResponse()
-    response.items = list(get_user_tasks(auth_user.id, session))
+    response.items = list(map(create_get_task_item, get_user_tasks(auth_user.id, session)))
 
     return response

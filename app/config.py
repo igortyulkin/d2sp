@@ -6,5 +6,6 @@ config = {
     "model": {
         "predict_queue": "predict",
         "save_result_queue": "save"
-    }
+    },
+    "count_recommendation_features": 5
 }
