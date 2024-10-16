@@ -34,7 +34,7 @@ def get_task(task_id: int, session: Session | None = None) -> Union[ModelTask, N
 def update_status(task_id: int, status: TaskStatus, quality: int | None = None, importance_list: list | None = None,
                   session: Session | None = None) -> None:
     data = {"status": status, "quality": quality}
-    if None != importance_list and len(importance_list) > 0:
+    if importance_list is not None and len(importance_list) > 0:
         data['importance_list'] = importance_list
     if session is None:
         with session_factory() as session:
