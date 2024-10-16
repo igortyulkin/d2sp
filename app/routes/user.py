@@ -6,8 +6,12 @@ from common.auth.AuthUser import AuthUser
 from common.auth.authenticate import authenticate
 from common.auth.hash_password import HashPassword
 from common.auth.jwt_handler import create_access_token
+from common.transaction.transaction_service import add_balance
+from config import config
 from database.database import get_session
 from common.user.user_service import get_user_by_email, registration, get_user
+from models.enum.transaction_type import TransactionType
+from models.transaction import Transaction
 
 from models.user import User
 from schema.user_schema import SignUpRequest, GetUserResponse
@@ -19,13 +23,19 @@ user_route = APIRouter(tags=['User'])
 def user_signup(data: SignUpRequest, session: Session = Depends(get_session)) -> dict:
     if get_user_by_email(data.email, session) is not None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User with same email already exists")
-    registration(User(
+    user = registration(User(
         email=data.email,
         password=HashPassword().create_hash(password=data.password),
         first_name=data.first_name,
         last_name=data.last_name,
         middle_name=data.middle_name,
     ), session)
+
+    t = Transaction()
+    t.credit_count = config['default_balance']
+    t.type = TransactionType.UP
+    t.user = user
+    add_balance(transaction=t, session=session)
 
     return {"message": "User created successfully!"}
 

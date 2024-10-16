@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, DateTime, func, Enum, ForeignKey
+from sqlalchemy import Column, Integer, DateTime, func, Enum, ForeignKey, JSON, ARRAY, String
 from sqlalchemy.orm import relationship
 
 from database.database import Base
@@ -16,3 +16,5 @@ class ModelTask(Base):
                           default=func.now())
     user = relationship(User)
     quality = Column(Integer, nullable=True)
+    payload = Column(JSON, nullable=True)
+    importance_list = Column(ARRAY(String), nullable=True)

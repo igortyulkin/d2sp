@@ -31,18 +31,22 @@ def get_task(task_id: int, session: Session | None = None) -> Union[ModelTask, N
     return session.get(ModelTask, task_id)
 
 
-def update_status(task_id: int, status: TaskStatus, quality: int | None = None, session: Session | None = None) -> None:
+def update_status(task_id: int, status: TaskStatus, quality: int | None = None, importance_list: list | None = None,
+                  session: Session | None = None) -> None:
+    data = {"status": status, "quality": quality}
+    if importance_list is not None and len(importance_list) > 0:
+        data['importance_list'] = importance_list
     if session is None:
         with session_factory() as session:
             session.query(ModelTask) \
                 .filter_by(id=task_id) \
-                .update({"status": status, "quality": quality})
+                .update(data)
             session.flush()
             session.commit()
 
     session.query(ModelTask) \
         .filter_by(id=task_id) \
-        .update({"status": status, "quality": quality})
+        .update(data)
     session.flush()
     session.commit()
 

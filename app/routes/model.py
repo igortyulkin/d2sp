@@ -16,7 +16,8 @@ from common.model_task.task_service import create_task, get_task, get_user_tasks
 from models.enum.task_status import TaskStatus
 from models.model_task import ModelTask
 from routes.common import check_user_exists, check_allow_credits
-from schema.model_schema import CreateTaskRequest, CreateTaskResponse, GetTaskResponse, GetUserTasksResponse
+from schema.model_schema import CreateTaskRequest, CreateTaskResponse, GetTaskResponse, GetUserTasksResponse, \
+    create_get_task_item
 
 model_route = APIRouter(tags=['model'])
 path_to_file = Path(__file__).parent.parent / config['model_file']
@@ -26,20 +27,21 @@ if os.path.isfile(path_to_file):
 is_ready = model is not None
 
 
-def create_model_task(auth_user: AuthUser) -> ModelTask:
+def create_model_task(auth_user: AuthUser, payload: dict) -> ModelTask:
     return ModelTask(cost=config['cost'],
                      status=TaskStatus.NEW,
-                     predicted_by=auth_user.id)
+                     predicted_by=auth_user.id,
+                     payload=payload)
 
 
-@model_route.post("/task/create", response_model=CreateTaskResponse)
+@model_route.post("/task", response_model=CreateTaskResponse)
 def task_create(request: CreateTaskRequest,
                 auth_user: AuthUser = Depends(authenticate),
                 session=Depends(get_session)) -> CreateTaskResponse:
     check_user_exists(auth_user.id, session)
     check_allow_credits(auth_user.id, config['cost'], session)
 
-    task = create_model_task(auth_user)
+    task = create_model_task(auth_user, dict(request.payload))
     create_task(task)
 
     queue_connection = get_connection()
@@ -69,6 +71,6 @@ def task_get(task_id: int,
 def task_get_list(auth_user: AuthUser = Depends(authenticate),
                   session=Depends(get_session)) -> GetUserTasksResponse:
     response = GetUserTasksResponse()
-    response.items = list(get_user_tasks(auth_user.id, session))
+    response.items = list(map(create_get_task_item, get_user_tasks(auth_user.id, session)))
 
     return response

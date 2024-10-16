@@ -38,8 +38,14 @@ def queue_config_resolver() -> tuple:
 
 def predict_callback(ch, method, properties, body):
     message = PredictMessage(**json.loads(body))
-    update_status(message.task_id, TaskStatus.PENDING, session=session)
     try:
+        importance_df = pd.DataFrame({
+            'Feature': list(dict(message.payload).keys()),
+            'Importance': model.get_feature_importance()
+        })
+        importance_df = importance_df.sort_values(by='Importance', ascending=False)
+        update_status(message.task_id, TaskStatus.PENDING, importance_list=list(importance_df['Feature']),
+                      session=session)
         result = int(list(model.predict(pd.DataFrame([dict(message.payload)]))).pop())
     except Exception:
         update_status(message.task_id, TaskStatus.ERROR, session=session)
