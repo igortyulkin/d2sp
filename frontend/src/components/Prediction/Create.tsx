@@ -72,7 +72,7 @@ export const Create = () => {
             },
             body: JSON.stringify({payload: values})
         };
-        fetch(`${apiEntrypoint()}/model/task/create`, requestOptions)
+        fetch(`${apiEntrypoint()}/model/task`, requestOptions)
             .then((response) => {
                 if (response.ok) {
                     return response.json().then((data) => {

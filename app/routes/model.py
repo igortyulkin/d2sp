@@ -33,7 +33,7 @@ def create_model_task(auth_user: AuthUser, payload: dict) -> ModelTask:
                      payload=payload)
 
 
-@model_route.post("/task/create", response_model=CreateTaskResponse)
+@model_route.post("/task", response_model=CreateTaskResponse)
 def task_create(request: CreateTaskRequest,
                 auth_user: AuthUser = Depends(authenticate),
                 session=Depends(get_session)) -> CreateTaskResponse:
