@@ -26,10 +26,11 @@ if os.path.isfile(path_to_file):
 is_ready = model is not None
 
 
-def create_model_task(auth_user: AuthUser) -> ModelTask:
+def create_model_task(auth_user: AuthUser, payload: dict) -> ModelTask:
     return ModelTask(cost=config['cost'],
                      status=TaskStatus.NEW,
-                     predicted_by=auth_user.id)
+                     predicted_by=auth_user.id,
+                     payload=payload)
 
 
 @model_route.post("/task/create", response_model=CreateTaskResponse)
@@ -39,7 +40,7 @@ def task_create(request: CreateTaskRequest,
     check_user_exists(auth_user.id, session)
     check_allow_credits(auth_user.id, config['cost'], session)
 
-    task = create_model_task(auth_user)
+    task = create_model_task(auth_user, dict(request.payload))
     create_task(task)
 
     queue_connection = get_connection()

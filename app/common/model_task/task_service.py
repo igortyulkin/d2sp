@@ -31,18 +31,21 @@ def get_task(task_id: int, session: Session | None = None) -> Union[ModelTask, N
     return session.get(ModelTask, task_id)
 
 
-def update_status(task_id: int, status: TaskStatus, quality: int | None = None, session: Session | None = None) -> None:
+def update_status(task_id: int, status: TaskStatus, quality: int | None = None, importance_list: list | None = None,
+                  session: Session | None = None) -> None:
     if session is None:
         with session_factory() as session:
             session.query(ModelTask) \
                 .filter_by(id=task_id) \
-                .update({"status": status, "quality": quality})
+                .update({"status": status, "quality": quality, "importance_list": importance_list})
             session.flush()
             session.commit()
 
     session.query(ModelTask) \
         .filter_by(id=task_id) \
-        .update({"status": status, "quality": quality})
+        .update({"status": status,
+                 "quality": quality,
+                 "importance_list": importance_list})
     session.flush()
     session.commit()
 
