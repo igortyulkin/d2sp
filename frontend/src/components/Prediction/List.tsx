@@ -60,7 +60,7 @@ export const List = () => {
                                     usedFeatures.push(key)
                                 }
                             }
-                            if (0 == usedFeatures.length) {
+                            if (0 === usedFeatures.length) {
                                 return ''
                             }
                             return <Tooltip action={'click'}
@@ -80,7 +80,7 @@ export const List = () => {
                         }}
                     </Table.Column>
                     <Table.Column id='recommendations' title='Recommendations'>
-                        {(item) => item.recommendations != undefined && item.recommendations.length != 0
+                        {(item) => item.recommendations !== undefined && item.recommendations.length !== 0
                             ? <Tooltip action={'click'}
                                        content={<Card><Flex direction={"column"}>
                                            <H5>We recommend that you try to explore new skills and opportunities</H5>
