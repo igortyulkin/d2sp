@@ -17,4 +17,3 @@ def calculate_rec_list(task: ModelTask) -> list:
             break
 
     return result
-

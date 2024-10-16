@@ -1,13 +1,18 @@
 import React from 'react';
 import {Button, Card, InputNumber, FormField, H2, Notifier} from 'vienna-ui'
 import {ApplicationUserStorageFactory} from "../common/user/ApplicationUserStorage";
-import {apiEntrypoint} from "../config";
+import {apiEntrypoint, config} from "../config";
 import {NavHeader} from "./NavHeader";
 import {MoneyBag} from "vienna.icons";
 
 export const Balance = () => {
     const [state, setState] = React.useState({credit_count: 0})
     const handleUpBalance = () => {
+        if (!config['allow_up_balance']) {
+            Notifier.warning({title: "", message: "We are very sorry, but we do not support the replenishment of the balance yet."})
+            return;
+        }
+
         const requestOptions = {
             method: 'POST',
             headers: {
